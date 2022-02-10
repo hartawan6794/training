@@ -18,7 +18,7 @@ class m220210_041331_akun1 extends Migration
         ]);
 
         $this->addPrimaryKey('akun1_pk','akun1',[
-            'akun1'
+            'kd_akun1'
         ]);
     }
 
