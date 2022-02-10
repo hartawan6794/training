@@ -3,22 +3,23 @@
 use yii\db\Migration;
 
 /**
- * Class m220210_041331_akun1
+ * Class m220210_045106_akun2
  */
-class m220210_041331_akun1 extends Migration
+class m220210_045106_akun2 extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('akun1',[
+        $this->createTable('akun2',[
+            'kd_akun2' => $this->tinyInteger()->notNull(),
             'kd_akun1' => $this->tinyInteger()->notNull(),
-            'akun1' => $this->string(100)->notNull(),
+            'akun2' => $this->string(100)->notNull(),
         ]);
 
-        $this->addPrimaryKey('akun1_pk','akun1',[
-            'akun1'
+        $this->addPrimaryKey('akun2_pk','akun2',[
+            'kd_akun2','kd_akun1'
         ]);
     }
 
@@ -27,7 +28,7 @@ class m220210_041331_akun1 extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('akun1');
+        $this->dropTable('akun2');
     }
 
     /*
@@ -39,7 +40,7 @@ class m220210_041331_akun1 extends Migration
 
     public function down()
     {
-        echo "m220210_041331_akun1 cannot be reverted.\n";
+        echo "m220210_045106_akun2 cannot be reverted.\n";
 
         return false;
     }
