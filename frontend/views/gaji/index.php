@@ -23,29 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     
-    <!-- <?php
-
-    echo "<table class='table-bordered table table-striped'";
-    echo "<tr>";
-    echo "<th>NIP</th>";
-    echo "<th>Nama</th>";
-    echo "<th>Gaji Pokok</th>";
-    echo "<th>Tunjangan Istri</th>";
-    echo "<th>Tubjangan Anak</th>";
-    echo "<th>Tunjangan Makan</th>";
-    echo "</tr>";
-    foreach($gaji as $gaji){
-    echo "<tr>";
-    echo "<td>.$gaji->id.</td>";
-    echo "<td>.$gaji->id_pegawai.</td>";
-    echo "<td>.$gaji->gaji_pokok.</td>";
-    echo "<td>.$gaji->tunjangan_istri.</td>";
-    echo "<td>.$gaji->tunjangan_anak.</td>";
-    echo "<td>.$gaji->tunjangan_makan.</td>";
-    echo "</tr>";
-    }
-    echo "</table>";
-    ?> -->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

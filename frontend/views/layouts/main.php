@@ -38,8 +38,9 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
-        ['label' => 'Pegawai', 'url' => ['/pegawai/index']],
-        ['label' => 'Gaji', 'url' => ['/gaji/index']],
+        ['label' => 'Akun1', 'url' => ['/akun1/index']],
+        ['label' => 'Akun2', 'url' => ['/akun2/index']],
+        ['label' => 'Akun3', 'url' => ['/akun3/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

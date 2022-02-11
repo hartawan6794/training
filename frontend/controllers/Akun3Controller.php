@@ -3,15 +3,18 @@
 namespace frontend\controllers;
 
 use frontend\models\Akun1;
+use frontend\models\Akun2;
+use frontend\models\Akun3;
+use frontend\models\Pegawai;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * Akun1Controller implements the CRUD actions for Akun1 model.
+ * Akun3Controller implements the CRUD actions for Akun3 model.
  */
-class Akun1Controller extends Controller
+class Akun3Controller extends Controller
 {
     /**
      * @inheritDoc
@@ -32,14 +35,14 @@ class Akun1Controller extends Controller
     }
 
     /**
-     * Lists all Akun1 models.
+     * Lists all Akun3 models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Akun1::find(),
+            'query' => Akun3::find(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -47,6 +50,8 @@ class Akun1Controller extends Controller
             'sort' => [
                 'defaultOrder' => [
                     'kd_akun1' => SORT_DESC,
+                    'kd_akun2' => SORT_DESC,
+                    'kd_akun3' => SORT_DESC,
                 ]
             ],
             */
@@ -58,30 +63,35 @@ class Akun1Controller extends Controller
     }
 
     /**
-     * Displays a single Akun1 model.
+     * Displays a single Akun3 model.
      * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
+     * @param int $kd_akun3 Kd Akun3
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($kd_akun1)
+    public function actionView($kd_akun1, $kd_akun2, $kd_akun3)
     {
         return $this->render('view', [
-            'model' => $this->findModel($kd_akun1),
+            'model' => $this->findModel($kd_akun1, $kd_akun2, $kd_akun3),
         ]);
     }
 
     /**
-     * Creates a new Akun1 model.
+     * Creates a new Akun3 model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Akun1();
+        $model = new Akun3();
+        $akun1 = Akun1::find()->asArray()->all();
+        $akun2 = Akun2::find()->asArray()->all();
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1]);
+                return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1, 'kd_akun2' => $model->kd_akun2, 'kd_akun3' => $model->kd_akun3]);
             }
         } else {
             $model->loadDefaultValues();
@@ -89,22 +99,27 @@ class Akun1Controller extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'akun1' => $akun1,
+            'akun2' => $akun2,
+
         ]);
     }
 
     /**
-     * Updates an existing Akun1 model.
+     * Updates an existing Akun3 model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
+     * @param int $kd_akun3 Kd Akun3
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($kd_akun1)
+    public function actionUpdate($kd_akun1, $kd_akun2, $kd_akun3)
     {
-        $model = $this->findModel($kd_akun1);
+        $model = $this->findModel($kd_akun1, $kd_akun2, $kd_akun3);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1]);
+            return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1, 'kd_akun2' => $model->kd_akun2, 'kd_akun3' => $model->kd_akun3]);
         }
 
         return $this->render('update', [
@@ -113,29 +128,33 @@ class Akun1Controller extends Controller
     }
 
     /**
-     * Deletes an existing Akun1 model.
+     * Deletes an existing Akun3 model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
+     * @param int $kd_akun3 Kd Akun3
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($kd_akun1)
+    public function actionDelete($kd_akun1, $kd_akun2, $kd_akun3)
     {
-        $this->findModel($kd_akun1)->delete();
+        $this->findModel($kd_akun1, $kd_akun2, $kd_akun3)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Akun1 model based on its primary key value.
+     * Finds the Akun3 model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $kd_akun1 Kd Akun1
-     * @return Akun1 the loaded model
+     * @param int $kd_akun2 Kd Akun2
+     * @param int $kd_akun3 Kd Akun3
+     * @return Akun3 the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($kd_akun1)
+    protected function findModel($kd_akun1, $kd_akun2, $kd_akun3)
     {
-        if (($model = Akun1::findOne(['kd_akun1' => $kd_akun1])) !== null) {
+        if (($model = Akun3::findOne(['kd_akun1' => $kd_akun1, 'kd_akun2' => $kd_akun2, 'kd_akun3' => $kd_akun3])) !== null) {
             return $model;
         }
 

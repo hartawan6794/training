@@ -256,4 +256,8 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    public function actionHello($nama){
+        return "Hello World ".$nama;
+    }
 }

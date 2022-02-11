@@ -54,9 +54,9 @@ class Pegawai extends \yii\db\ActiveRecord
     {
         return [
             'id_pegawai' => 'Id Pegawai',
-            'nip' => 'Nip',
+            'nip' => 'NIP',
             'nama' => 'Nama',
-            'jekel' => 'Jekel',
+            'jekel' => 'Jenis Kelamin',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'telpon' => 'Telpon',

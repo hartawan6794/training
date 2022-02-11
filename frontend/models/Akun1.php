@@ -7,7 +7,8 @@ use Yii;
 /**
  * This is the model class for table "akun1".
  *
- * @property int $akun1
+ * @property int $kd_akun1
+ * @property string $akun1
  */
 class Akun1 extends \yii\db\ActiveRecord
 {
@@ -25,9 +26,10 @@ class Akun1 extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['akun1'], 'required'],
-            [['akun1'], 'integer'],
-            [['akun1'], 'unique'],
+            [['kd_akun1', 'akun1'], 'required'],
+            [['kd_akun1'], 'integer'],
+            [['akun1'], 'string', 'max' => 100],
+            [['kd_akun1'], 'unique'],
         ];
     }
 
@@ -37,6 +39,7 @@ class Akun1 extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'kd_akun1' => 'Kd Akun1',
             'akun1' => 'Akun1',
         ];
     }

@@ -52,8 +52,11 @@ class PegawaiController extends Controller
             */
         ]);
 
+        $pegawai = Pegawai::find()->all();
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'pegawai' => $pegawai,
         ]);
     }
 

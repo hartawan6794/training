@@ -2,18 +2,17 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Gaji;
-use frontend\models\Gajisearch;
-use frontend\models\Pegawai;
+use frontend\models\Akun1;
+use frontend\models\Akun2;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
 /**
- * GajiController implements the CRUD actions for Gaji model.
+ * Akun2Controller implements the CRUD actions for Akun2 model.
  */
-class GajiController extends Controller
+class Akun2Controller extends Controller
 {
     /**
      * @inheritDoc
@@ -34,68 +33,60 @@ class GajiController extends Controller
     }
 
     /**
-     * Lists all Gaji models.
+     * Lists all Akun2 models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new Gajisearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        $gaji = Gaji::find()->all();
-        // $pegawai = $gaji->pegawai;
+        $dataProvider = new ActiveDataProvider([
+            'query' => Akun2::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'kd_akun1' => SORT_DESC,
+                    'kd_akun2' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'gaji' => $gaji,
-            // 'pegawai'=> $pegawai,
         ]);
     }
 
     /**
-     * Displays a single Gaji model.
-     * @param int $id ID
+     * Displays a single Akun2 model.
+     * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($kd_akun1, $kd_akun2)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($kd_akun1, $kd_akun2),
         ]);
     }
 
     /**
-     * Creates a new Gaji model.
+     * Creates a new Akun2 model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Gaji();
+        $model = new Akun2();
 
-
-        // if(Yii::$app->request->post()){
-        //     $model->load(Yii::$app->request->post());
-        //     if($model->save()){
-        //         Yii::$app->session->setFlash('success','Data berhasil disimpan');    
-        //     }
-        //     else{
-        //         Yii::$app->session->setFlash('error','Data gagal disimpan');    
-        //     }
-        //     return $this->refresh();
-        // }
-        // else{
-        //     return $this->render('create', [
-        //         'model' => $model,
-        //     ]);
-        // }
-    
+         $akun1 = Akun1::find()->asArray()->all();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1, 'kd_akun2' => $model->kd_akun2]);
             }
         } else {
             $model->loadDefaultValues();
@@ -103,22 +94,24 @@ class GajiController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'akun1' => $akun1,
         ]);
     }
 
     /**
-     * Updates an existing Gaji model.
+     * Updates an existing Akun2 model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($kd_akun1, $kd_akun2)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($kd_akun1, $kd_akun2);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'kd_akun1' => $model->kd_akun1, 'kd_akun2' => $model->kd_akun2]);
         }
 
         return $this->render('update', [
@@ -127,29 +120,31 @@ class GajiController extends Controller
     }
 
     /**
-     * Deletes an existing Gaji model.
+     * Deletes an existing Akun2 model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($kd_akun1, $kd_akun2)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($kd_akun1, $kd_akun2)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Gaji model based on its primary key value.
+     * Finds the Akun2 model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Gaji the loaded model
+     * @param int $kd_akun1 Kd Akun1
+     * @param int $kd_akun2 Kd Akun2
+     * @return Akun2 the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($kd_akun1, $kd_akun2)
     {
-        if (($model = Gaji::findOne(['id' => $id])) !== null) {
+        if (($model = Akun2::findOne(['kd_akun1' => $kd_akun1, 'kd_akun2' => $kd_akun2])) !== null) {
             return $model;
         }
 
